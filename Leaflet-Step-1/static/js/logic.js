@@ -2,7 +2,7 @@
 var queryUrl = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson'
 
 // Perform a GET request to the query URL
-d3.json(queryUrl, function(data) {
+d3.json(queryUrl).then(function(data) {
     // Once we get a response, send the data.features object to the createMap function
     createMap(data.features);
 
@@ -20,7 +20,7 @@ function createMap(earthquakeData) {
     );
 
     // Grab the max of the eq mags to set up color scale domain
-    let colorScale = d3.scaleSequential(d3.interpolatePlasma)
+    let colorScale = d3.scaleSequential(d3.interpolateReds)
             .domain([0, d3.max(magArr)]);
 
     // Loop through locations and markers elements
